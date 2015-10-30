@@ -1,3 +1,5 @@
+import unittest
+
 class Node(object):
     def __init__(self, value):
         self.value = value
@@ -26,13 +28,27 @@ class Node(object):
             print node.value
             node = node.prev
 
+    def to_array(self):
+        to_return = []
+        node = self
+        while node:
+            to_return.append(node.value)
+            node = node.next
+        return to_return
 
-root = Node(-1)
-for i in range(10):
-    a = Node(i)
-    root.append(a)
+class TestLinkedList(unittest.TestCase):
+    """Tests for my linked list"""
+    def test_append_should_increase_length(self):
+        root = Node(-1)
+        new_node = Node(2)
+        root.append(new_node)
+        self.assertEquals(len(root.to_array()), 2)
 
-print "Display:"
-root.display()
-print "Reversed:"
-root.display_reverse()
+    def test_to_array_should_create_array(self):
+        root = Node(-1)
+        new_node = Node(2)
+        root.append(new_node)
+        self.assertEquals(root.to_array(), [-1, 2])
+
+if __name__ == "__main__":
+    unittest.main()

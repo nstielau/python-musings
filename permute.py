@@ -1,22 +1,23 @@
-#!/usr/bin/env python 
+#!/usr/bin/env python
 
 import unittest
 
-def not_tail_permute(input):
-    if len(input) == 0 or len(input) == 1:
+def permute(input):
+    if len(input) <= 1:
         return [input]
-    permutations = []
-    for i in range(len(input)):
-        for subperm in permute(input[0:i] + input[i+1:]):
-            permutations.append(input[i] + subperm)
-    return permutations
 
-def permute(input, prefix='', permuations=[]):
+    permuations = []
+    for i in range(len(input)):
+        for permutation in permute(input[0:i] + input[i+1:]):
+            permuations.append(input[i] + permutation)
+    return permuations
+
+def def_tail_recursive_permute(input, prefix='', permuations=[]):
     if len(input) == 0 or len(input) == 1:
         permutations.append(prefix+input)
-        return ''       
+        return ''
     for i in range(len(input)):
-        permutations.append permute(input[0:i] + input[i+1:], prefix + input[i], permutations):
+        permutations.append(permute(input[0:i] + input[i+1:], prefix + input[i], permutations))
 
 class TestPermutation(unittest.TestCase):
     def test_one_char_permute(self):
